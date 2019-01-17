@@ -1,4 +1,4 @@
-package com.sofrecom.loggyzer;
+package com.sof.loggyzer;
 
 /**
  * Hello world!
