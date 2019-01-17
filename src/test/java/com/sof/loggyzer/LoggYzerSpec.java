@@ -4,18 +4,18 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class AppSpec {
+public class LoggYzerSpec {
 	
 	@Test
 	void shouldReturnGivenNameWithHello() {
-		App app = new App();
-		String message = app.getMessage("Maha");
+		LoggYzer loggYzer = new LoggYzer();
+		String message = loggYzer.getMessage("Maha");
 		assertEquals("Hello Maha", message);
 	}
 	@Test
 	void shouldAddTwoIntegers(){
-		App app = new App();
-		int result = app.add(2,3);
+		LoggYzer loggYzer = new LoggYzer();
+		int result = loggYzer.add(2,3);
 		assertEquals(5, result);
 	}
 

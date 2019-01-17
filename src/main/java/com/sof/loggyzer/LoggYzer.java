@@ -4,7 +4,7 @@ package com.sof.loggyzer;
  * Hello world!
  *
  */
-public class App 
+public class LoggYzer
 {
     public static void main( String[] args )
     {
