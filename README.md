@@ -4,4 +4,4 @@ LoggYzer is a tool to collect and analyze java logs including detection and stat
 ## Architecture
 
 ![Screenshot](loggyzer.png)
-
+### Description
