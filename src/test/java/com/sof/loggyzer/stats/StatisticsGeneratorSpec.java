@@ -1,33 +1,59 @@
 package com.sof.loggyzer.stats;
 
 import com.sof.loggyzer.model.ExceptionInfo;
+import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class StatisticsGeneratorSpec {
 
-    /**
-     * Count the exceptions and return stats
-     * same logic as :
-     *
-     *exceptionsMap.forEach(function(exception) {
-     *                 if(exceptionStats[exception.key]){
-     *                  exceptionStats[exception.key].count = exceptionStats[exception.key].count + 1;
-     *                 }else{
-     *                     exceptionStats[exception.key] = {};
-     *                     exceptionStats[exception.key].infos = exception.infos;
-     *                     exceptionStats[exception.key].count = 1;
-     *
-     *                 }
-     *
-     *             });
-     * @param exceptionsMap
-     * @return
-     */
-    public Optional<Map<String,Integer>> generateStatsByException(Map<String,
-            ExceptionInfo> exceptionsMap){
-        return Optional.empty();
+
+    @Test
+    void shouldReturnEmptyOptionalIfGivenListIsEmpty(){
+        StatisticsGenerator statisticsGenerator = new StatisticsGenerator();
+
+        List<ExceptionInfo> exceptionsEmpty =  new ArrayList<>();
+        Optional<Map<String, Integer>> optionalWhenListIsNull = statisticsGenerator.generateStatsByException(null);
+        Optional<Map<String, Integer>> optionalWhenListIsEmpty = statisticsGenerator.generateStatsByException(exceptionsEmpty);
+
+        Assert.assertFalse(optionalWhenListIsNull.isPresent());
+        Assert.assertFalse(optionalWhenListIsEmpty.isPresent());
+
+
     }
+    @Test
+    void shouldReturnMapExceptionsWithCount(){
+        //String name, String clazz, String methodName, int line, String description
+        ExceptionInfo nullPointerExceptionFirst = new ExceptionInfo("NullPointerExceptiion",
+                "com.sof.LoggYzer.class","parseArgumets", 11, "exception description" );
+
+        ExceptionInfo nullPointerExceptionSecond = new ExceptionInfo("NullPointerExceptiion",
+                "com.sof.LoggYzer.class","parseArgumets", 11, "exception description" );
+
+        ExceptionInfo illegalArgumentException = new ExceptionInfo("IllegalArgumentException",
+                "com.sof.LoggYzer.class","parseArgumets", 13, "exception description" );
+
+
+        List<ExceptionInfo> exceptions = Arrays.asList(nullPointerExceptionFirst,
+                nullPointerExceptionSecond,
+                illegalArgumentException);
+
+
+        StatisticsGenerator statisticsGenerator = new StatisticsGenerator();
+
+        Optional<Map<String, Integer>> optionalStatsMap = statisticsGenerator.generateStatsByException(exceptions);
+        Assertions.assertTrue(optionalStatsMap.isPresent());
+
+        Map<String, Integer> exceptionStatsMap = optionalStatsMap.get();
+       Integer nbNullPointerExceptions =   exceptionStatsMap.get(nullPointerExceptionFirst.getKey());
+       Assert.assertNotNull(nbNullPointerExceptions);
+       Assertions.assertEquals(2,nbNullPointerExceptions.intValue());
+
+
+
+    }
+
 
 }

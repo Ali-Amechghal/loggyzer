@@ -60,6 +60,10 @@ public class ExceptionInfo {
         this.description = description;
     }
 
+    public String getKey() {
+        return key;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
