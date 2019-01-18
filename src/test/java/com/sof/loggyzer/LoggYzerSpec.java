@@ -39,11 +39,10 @@ public class LoggYzerSpec {
             {
                 System.out.println("map : " + map.get(2));
                 System.out.println("map : " + map.get(1));
-
                 System.out.println("Size of HashMap : " + map.size());
             }
 		}
-		
+
 
 
 
