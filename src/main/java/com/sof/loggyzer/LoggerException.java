@@ -3,6 +3,15 @@ package com.sof.loggyzer;
 import java.rmi.activation.ActivationGroup_Stub;
 
 public class LoggerException {
+    var UTILS = {};
+    UTILS.replaceAll =  function(target ,searchPatten, replacement){
+        return target.replace(new RegExp(searchPatten, 'g'), replacement);
+    }
+
+
+    var _instance  ={}
+    var path = require('path'),
+            fs = require('fs');
 
     public   key;
     //Patterns :
@@ -19,13 +28,38 @@ public class LoggerException {
         cause = "((?:\\s*...\\s+\\d+\\s+more)?\\s+Caused\\s+by:\\s+)" + exception;
     }
 
+    _instance.help = function(){
+
+        console.log('##################################');
+        console.log('logAnalyzer Logpathfile AnalyseLevel');
+        console.log('Logpathfile  : path to log file');
+        console.log('AnalyseLevel : Analyzing level');
+    }
+
+    _instance.readFile = function(_path, _encoding, _callback){
+        _encoding = (_encoding) || 'utf8';
+        fs.readFile(_path ,_encoding, function(_error , _data){
+            if(_error)
+                _callback(_error, null);
+            else
+                _callback(null, _data);
+        }
+    }
+
+    _instance.preProcessor = function(err,data){
+        if(!err){
+            _instance.data = data;
+
+            var _lines = UTILS.replaceAll(UTILS.replaceAll(_instance.data ,"\r" , "") ,"\t" , "").split(/\n/);
+            _instance.formattedData = _lines.join(" ");
+            //console.log(_instance.formattedData);
 
 
+            var arrysMtch =  _instance.formattedData.match(new RegExp(frame,'gi'));
 
-
-  var eexcpetionsArray  = [];
+    var eexcpetionsArray  = [];
     public  LoggerException(name, clazz, method, line, var exception){
-        Exception = exception;
+        this.Exception = exception;
         this.name  =  name;
         this.class =clazz;
         this.method = method;
@@ -37,7 +71,7 @@ public class LoggerException {
         })(this);
     }
 
-    private string Exception;
+    private var Exception;
 
     public string LoggerException(){
                  this.class  == _exception.class;
@@ -50,9 +84,18 @@ public class LoggerException {
     }
 
 
+               var reg = new RegExp(frame,'gi');
+               var match = reg.exec(_instance.formattedData);
+                  while (match != null) {
+                //console.log('::'+match[0]);
+                var _exception =  new Exception(match[1], match[3], match[4],  match[5],match[0]);
+                excpetionsArray.push(_exception);
+                match = reg.exec(_instance.formattedData);
+            }
 
-    var exceptionStats = {};
-           public boolean  excpetionsArray.forEach(LoggerException(exception) {
+
+                  var exceptionStats = {}
+                  public boolean  excpetionsArray.forEach(LoggerException(exception) {
         if (exceptionStats[exception.key]) {
             exceptionStats[exception.key].count = exceptionStats[exception.key].count + 1;
         } else {
