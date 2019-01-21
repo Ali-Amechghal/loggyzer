@@ -1,51 +1,35 @@
 package com.sof.loggyzer;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
-import java.util.HashMap;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.io.PrintStream;
 
 public class LoggYzerSpec {
-	
-	@Test
-	void shouldReturnGivenNameWithHello() {
-		LoggYzer loggYzer = new LoggYzer();
-		String message = loggYzer.getMessage("Maha");
-		assertEquals("Hello Maha", message);
+
+	private LoggYzer loggYzer;
+	private static final String HELP_MESSAGE = "     *  ===================== Help ============================\n" +
+			"     *    Please use the command bellow to run the program\n" +
+			"     *      java -cp loggyzer.jar com.sof.loggyzer \\\n" +
+			"     *        -d path/to/the/log/directory \\\n" +
+			"     *        -s /path/to/the/stats/directory\n" +
+			"     *\n" +
+			"     *     -d : specify the log directory path\n" +
+			"     *     -s : specify the directory path where\n" +
+			"     *          the stats will be generated\n" +
+			"     *  ========================================================\n";
+	@BeforeEach
+	void init(){
+		loggYzer =  new LoggYzer();
 	}
 	@Test
-	void shouldAddTwoIntegers(){
-		LoggYzer loggYzer = new LoggYzer();
-		int result = loggYzer.add(2,3);
-		assertEquals(5, result);
+	void shouldVerifyTheHelpOutPut(){
+		PrintStream out = Mockito.mock(PrintStream.class);
+		System.setOut(out);
+		loggYzer.help();
+		Mockito.verify(out).println(HELP_MESSAGE);
 	}
 
-	@Test
-	void shouldReturnMapExceptionsWithCount(){
-		// initialiser une hashmap avec 3 instances de la class LoggerException:
-		// NullPointerEXceptiion  , nullpointeerexception, illegalargumentException
-		// nullpointerexception:2, illegalargumentException : 1
-		// asserts junit
-         //creation of Hashmap
-		public static final HashMap<Integer, String> map = new HashMap<Integer, String>();
-		{
-			//adding value to Hashmap
-			map.put(2, "nullPointException");
-			map.put(1,"illegalArgumentException");
-            System.out.println("Testing .isEmpty() method");
-
-            if (!map.isEmpty())
-            {
-                System.out.println("map : " + map.get(2));
-                System.out.println("map : " + map.get(1));
-                System.out.println("Size of HashMap : " + map.size());
-            }
-		}
-
-
-
-
-	}
 
 }
