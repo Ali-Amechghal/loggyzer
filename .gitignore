@@ -9,13 +9,13 @@ buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
 *.class
-
+.idea
 # Log file
 *.log
-
+./loggyzer.iml
 # BlueJ files
 *.ctxt
-
+*.iml
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
