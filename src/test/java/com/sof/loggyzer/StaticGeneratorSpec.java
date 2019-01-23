@@ -66,7 +66,7 @@ public class StaticGeneratorSpec {
         //args[3] = "com.sof.loggyzer";
         //Arrays.Stream(args).forEachordered(System.out::println);
         LoggYzer.parseArguments(args);
-        Asert.assertNotNull(args);
+        Assert.assertNotNull(args);
 
          }
 }
